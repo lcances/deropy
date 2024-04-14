@@ -1,0 +1,1 @@
+"Module(body=[FunctionDef(name='one_function', args=arguments(posonlyargs=[], args=[], kwonlyargs=[], kw_defaults=[], defaults=[]), body=[Assign(targets=[Name(id='a', ctx=Store())], value=Constant(value=0))], decorator_list=[])], type_ignores=[])"

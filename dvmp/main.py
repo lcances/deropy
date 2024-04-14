@@ -1,7 +1,7 @@
 import click
 
-from deropy.commands.generate import generate
-from deropy.commands.deploy import deploy
+from dvmp.commands.generate import generate
+from dvmp.commands.deploy import deploy
 
 
 @click.group('deropy')

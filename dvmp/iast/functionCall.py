@@ -1,0 +1,37 @@
+import json, ast, inspect
+
+import dvmp.iast as iast
+import dvmp.iast.iast_converter as iast_converter
+
+
+class FunctionCall(iast.IastNode):
+    def __init__(self, name, args):
+        self.name = name
+        self.args = args
+
+    @classmethod
+    def from_python_ast(cls, node):
+        return cls(node.func.id, [iast_converter.to_iast(arg) for arg in node.args])
+
+    def to_json(self):
+        json_args = []
+        for a in self.args:
+            if isinstance(a, (iast.FunctionCall, iast.Constant)):
+                json_args.append(json.loads(a.to_json()))
+                continue
+            
+            json_args.append(a)
+
+        return json.dumps(
+            {
+                "type": "FunctionCall",
+                "function": {
+                    "name": self.name,
+                    "args": json_args
+                }
+            }
+        )
+
+    def __repr__(self):
+        return f"{self.name}({', '.join([str(arg) for arg in self.args])})"
+    

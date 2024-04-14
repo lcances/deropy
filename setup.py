@@ -2,8 +2,8 @@ import os
 from setuptools import setup, find_packages
 
 setup(
-    name='deropy',
-    version=os.getenv('DEROPY_VERSION') or '0.0.2',
+    name='dvm',
+    version=os.getenv('DVM_PYTHON_VERSION') or '0.0.1',
     url='https://github.com/lcances/deropy',
     author_email='leocances@gmail.com',
     description='A set of tool to help of DERO smart contract development',
@@ -26,7 +26,7 @@ setup(
     ],
     entry_points={
         'console_scripts': [
-            'deropy=deropy.main:deropy'
+            'dvm=dvm.main:dvm'
         ]
     }
 )
