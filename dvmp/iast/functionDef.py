@@ -1,12 +1,13 @@
 import json, ast, inspect
 
-from dvmp.iast import IastNode
+import dvmp.iast as iast
+import dvmp.iast.iast_converter as iast_converter
 from dvmp.utils import type_python_to_intermediate
 
 code = 'store("owner", "signer")'
 python_ast = ast.parse(code)
 
-class FunctionDef(IastNode):
+class FunctionDef(iast.IastNode):
     def __init__(self, name, args, body, returns):
         self.name = name
         self.args = args
@@ -14,11 +15,11 @@ class FunctionDef(IastNode):
         self.returns = returns
 
     @classmethod
-    def from_python_ast(cls, node, body: IastNode):
+    def from_python_ast(cls, node, body: iast.IastNode):
         returns = node.returns.id if node.returns is not None else None
-        return cls(node.name, [arg.arg for arg in node.args.args], body, returns)
+        return cls(node.name, [iast_converter.to_iast(arg) for arg in node.args.args], body, returns)
     
-    def add_to_body(self, node: IastNode):
+    def add_to_body(self, node: iast.IastNode):
         self.body.append(node)
 
     def to_json(self):
@@ -28,7 +29,7 @@ class FunctionDef(IastNode):
                 "type": "FunctionDef",
                 "function": {
                     "name": self.name,
-                    "args": self.args,
+                    "args": [json.loads(arg.to_json()) for arg in self.args],
                     "body": json_body,
                     "returns": type_python_to_intermediate(self.returns)
                 }

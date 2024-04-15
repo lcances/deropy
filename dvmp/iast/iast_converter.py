@@ -8,6 +8,18 @@ def to_iast(node):
     if isinstance(node, ast.ClassDef):
         pass
 
+    if isinstance(node, ast.If):
+        return iast.IfTest.from_python_ast(node)
+    
+    if isinstance(node, ast.Compare):
+        return iast.Compare.from_python_ast(node)
+    
+    if isinstance(node, ast.BinOp):
+        return iast.BinaryOperator.from_python_ast(node)
+    
+    if isinstance(node, ast.arg):
+        return iast.Argument.from_python_ast(node)
+
     if isinstance(node, ast.Assign):
         return iast.Assignment.from_python_ast(node)
 
@@ -37,5 +49,34 @@ def to_iast(node):
     # LEAF
     if isinstance(node, ast.Constant):
         return iast.Constant.from_python_ast(node)
+    
+    if isinstance(node, ast.Name):
+        return iast.Name.from_python_ast(node)
+    
+    # OPERATORS
+    if isinstance(node, ast.Eq):
+        return iast.Operator.from_python_ast(node)
+    if isinstance(node, ast.NotEq):
+        return iast.Operator.from_python_ast(node)
+    if isinstance(node, ast.Lt):
+        return iast.Operator.from_python_ast(node)
+    if isinstance(node, ast.LtE):
+        return iast.Operator.from_python_ast(node)
+    if isinstance(node, ast.Gt):
+        return iast.Operator.from_python_ast(node)
+    if isinstance(node, ast.GtE):
+        return iast.Operator.from_python_ast(node)
+    if isinstance(node, ast.Is):
+        return iast.Operator.from_python_ast(node)
+    if isinstance(node, ast.IsNot):
+        return iast.Operator.from_python_ast(node)
+    if isinstance(node, ast.Add):
+        return iast.Operator.from_python_ast(node)
+    if isinstance(node, ast.Sub):
+        return iast.Operator.from_python_ast(node)
+    if isinstance(node, ast.Mult):
+        return iast.Operator.from_python_ast(node)
+    if isinstance(node, ast.Div):
+        return iast.Operator.from_python_ast(node)
 
     return None

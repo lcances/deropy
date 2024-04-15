@@ -15,7 +15,7 @@ class Assignment():
         return json.dumps(
             {
                 "type": "Assignment",
-                "variable": self.variable,
+                "name": self.variable,
                 "value": self.value
             }
         )

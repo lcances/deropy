@@ -16,11 +16,7 @@ class FunctionCall(iast.IastNode):
     def to_json(self):
         json_args = []
         for a in self.args:
-            if isinstance(a, (iast.FunctionCall, iast.Constant)):
-                json_args.append(json.loads(a.to_json()))
-                continue
-            
-            json_args.append(a)
+            json_args.append(json.loads(a.to_json()))
 
         return json.dumps(
             {

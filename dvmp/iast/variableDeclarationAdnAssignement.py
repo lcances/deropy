@@ -24,7 +24,7 @@ class VariableDeclarationAndAssignment():
             },
             {
                 "type": "Assignment",
-                "variable": self.name,
+                "name": self.name,
                 "value": self.value
             }
         ])

@@ -1,5 +1,7 @@
 import json, ast, inspect
 
+import dvmp.dast as dast
+import dvmp.dast.dast_converter as dast_converter
 from dvmp.utils import type_intermediate_to_dvm
 
 
@@ -14,7 +16,7 @@ class FunctionDef():
     def from_intermediate_ast(cls, json):
         return cls(
             json["function"]["name"],
-            json["function"]["args"],
+            [dast_converter.to_dast(arg) for arg in json["function"]["args"]],
             json["function"]["body"],
             json["function"]["returns"]
         )
@@ -25,7 +27,7 @@ class FunctionDef():
                 "type": "FunctionDef",
                 "function": {
                     "name": self.name,
-                    "args": self.args,
+                    "args": [arg for arg in self.args],
                     "body": self.body,
                     "returns": self.returns
                 }
